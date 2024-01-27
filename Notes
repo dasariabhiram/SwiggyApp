@@ -1,0 +1,4 @@
+package.json => configuration of Npm
+important package is bundler -> Webpack,parcel,vite -> packages the app to push into production.
+
+
