@@ -1,6 +1,19 @@
+import React from "react";
 import { CDN_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem } from "../utils/cartSlice";
 
-const ItemList = ({ items, dummy }) => {
+const ItemList = ({ items, inCartView }) => {
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    dispatch(addItem(item));
+  };
+
+  const handleRemoveItem = (item) => {
+    dispatch(removeItem(item));
+  };
+
   return (
     <div>
       {items.map((item) => (
@@ -22,9 +35,20 @@ const ItemList = ({ items, dummy }) => {
           </div>
           <div className="w-3/12 p-4">
             <div className="absolute">
-              <button className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg">
+              <button
+                className="p-2 mx-4 rounded-lg bg-black text-white shadow-lg"
+                onClick={() => handleAddItem(item)}
+              >
                 Add +
               </button>
+              {inCartView && (
+                <button
+                  className="p-2 mx-4 rounded-lg bg-red-500 text-white shadow-lg"
+                  onClick={() => handleRemoveItem(item)}
+                >
+                  Remove -
+                </button>
+              )}
             </div>
             <img src={CDN_URL + item.card.info.imageId} className="w-full" />
           </div>
